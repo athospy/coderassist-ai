@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:santiagomorel.dev)",
+      "Bash(mkdir -p /Users/santiagomorel/site/coderassist-ai/brand /Users/santiagomorel/site/coderassist-ai/posts)",
+      "Bash(xargs sed -i '' 's/asssets/assets/g')",
+      "Bash(pip install *)",
+      "Bash(python scripts/status.py)",
+      "Bash(python3.11 --version)",
+      "Bash(python3.12 --version)",
+      "Bash(pip index *)",
+      "Bash(python scripts/mark.py 01-stat-shock ready)",
+      "Bash(python scripts/status.py --ready)",
+      "Bash(python scripts/push.py --dry-run)",
+      "Bash(python scripts/mark.py 01-stat-shock draft)",
+      "Read(//Users/santiagomorel/**)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers', {}\\), indent=2\\)\\)\")",
+      "Bash(npx @playwright/mcp@latest --version)",
+      "Bash(npm list *)"
+    ],
+    "additionalDirectories": [
+      "/Users/santiagomorel/site/coderassist-ai"
+    ]
+  }
+}
