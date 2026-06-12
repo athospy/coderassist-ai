@@ -1,0 +1,9 @@
+# Credentials — never commit
+scripts/.env
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
