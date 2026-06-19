@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: Claude Code — give it a plan first
 suggested_day: Tuesday
 ---

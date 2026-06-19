@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: AI mindset — junior vs senior devs
 suggested_day: Saturday
 ---

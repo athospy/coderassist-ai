@@ -1,5 +1,5 @@
 ---
-status: draft
+status: published
 topic: Vibe coding — hot take
 suggested_day: Friday
 ---
@@ -10,7 +10,7 @@ Vibe coding will get you fired. Unless you understand what the AI wrote.
 
 ## Caption
 
-"Vibe coding" is real and it works — until it doesn't.
+"Vibe coding" is real and it works, until it doesn't.
 
 The pattern is always the same: prompt the AI, paste the output, tweak until it runs, ship it. No architecture. No understanding. No tests.
 

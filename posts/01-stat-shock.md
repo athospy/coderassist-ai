@@ -1,5 +1,5 @@
 ---
-status: draft
+status: published
 topic: AI adoption stats
 suggested_day: Thursday
 ---

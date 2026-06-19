@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: What to always review in AI-generated code
 suggested_day: Thursday
 ---

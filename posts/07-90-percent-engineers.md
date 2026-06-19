@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: The shifting role of engineers in the AI era
 suggested_day: Monday
 ---

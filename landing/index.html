@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@coderassist — AI tools for developers</title>
+  <meta name="description" content="Practical AI tools and developer productivity insights for software engineers. Follow @coderassist on Instagram." />
+  <meta property="og:title" content="@coderassist — AI tools for developers" />
+  <meta property="og:description" content="Practical AI tools and developer productivity insights for software engineers." />
+  <meta property="og:image" content="avatar.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #060d06;
+      --bg-card:    rgba(0, 230, 118, 0.04);
+      --neon:       #00e676;
+      --neon-dim:   rgba(0, 230, 118, 0.25);
+      --neon-faint: rgba(0, 230, 118, 0.08);
+      --white:      #f0fff4;
+      --muted:      rgba(200, 240, 210, 0.55);
+      --glow-sm:    0 0 8px rgba(0, 230, 118, 0.6);
+      --glow-md:    0 0 16px rgba(0, 230, 118, 0.5), 0 0 32px rgba(0, 230, 118, 0.2);
+      --glow-lg:    0 0 20px rgba(0, 230, 118, 0.7), 0 0 60px rgba(0, 230, 118, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Matrix canvas ── */
+    #matrix {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* ── Page wrapper (sits above canvas) ── */
+    .page {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 56px 0 36px;
+      text-align: center;
+    }
+
+    /* Neon ring avatar */
+    .avatar-ring {
+      width: 108px;
+      height: 108px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      padding: 4px;
+      background: conic-gradient(from 180deg, var(--neon), #00c8ff, var(--neon), #00c8ff, var(--neon));
+      box-shadow: var(--glow-lg);
+      animation: spin-ring 6s linear infinite;
+    }
+
+    @keyframes spin-ring {
+      to { filter: hue-rotate(360deg); }
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--bg);
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Brand name */
+    header h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--neon);
+      text-shadow: var(--glow-md);
+    }
+
+    .handle {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Tagline ── */
+    .tagline {
+      text-align: center;
+      padding: 0 0 44px;
+    }
+
+    .tagline p {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--muted);
+      font-size: 0.92rem;
+      max-width: 460px;
+      margin: 0 auto 32px;
+      line-height: 1.8;
+      border-left: 2px solid var(--neon-dim);
+      padding-left: 16px;
+      text-align: left;
+    }
+
+    .tagline p::before {
+      content: '> ';
+      color: var(--neon);
+    }
+
+    /* ── CTA ── */
+    .btn-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--neon);
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 32px;
+      border: 1.5px solid var(--neon);
+      border-radius: 4px;
+      box-shadow: var(--glow-sm), inset 0 0 20px rgba(0, 230, 118, 0.04);
+      transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .btn-instagram:hover {
+      background: rgba(0, 230, 118, 0.1);
+      box-shadow: var(--glow-md), inset 0 0 30px rgba(0, 230, 118, 0.08);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--neon-faint);
+      margin: 0 0 40px;
+      position: relative;
+    }
+
+    .divider::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 1px;
+      background: var(--neon);
+      box-shadow: var(--glow-sm);
+      margin-top: -1px;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 20px;
+    }
+
+    /* ── Posts ── */
+    .posts { padding-bottom: 52px; }
+
+    .posts-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--neon-faint);
+      border-left: 2px solid var(--neon-dim);
+      border-radius: 4px;
+      padding: 20px 22px;
+      text-decoration: none;
+      color: var(--white);
+      display: block;
+      transition: border-left-color 0.2s, background 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 2px; height: 0;
+      background: var(--neon);
+      box-shadow: var(--glow-sm);
+      transition: height 0.3s ease;
+    }
+
+    .post-card:hover::before { height: 100%; }
+
+    .post-card:hover {
+      background: rgba(0, 230, 118, 0.07);
+      border-left-color: var(--neon);
+      box-shadow: 0 0 20px rgba(0, 230, 118, 0.08);
+    }
+
+    .post-tag {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 8px;
+    }
+
+    .post-tag::before { content: '// '; opacity: 0.5; }
+
+    .post-hook {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--white);
+    }
+
+    .post-arrow {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--neon);
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .post-card:hover .post-arrow { opacity: 1; }
+
+    /* ── Newsletter ── */
+    .newsletter { padding-bottom: 72px; }
+
+    .newsletter-box {
+      background: var(--bg-card);
+      border: 1px solid var(--neon-faint);
+      border-radius: 4px;
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* corner accent */
+    .newsletter-box::before,
+    .newsletter-box::after {
+      content: '';
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: var(--neon);
+      border-style: solid;
+    }
+    .newsletter-box::before {
+      top: -1px; left: -1px;
+      border-width: 2px 0 0 2px;
+    }
+    .newsletter-box::after {
+      bottom: -1px; right: -1px;
+      border-width: 0 2px 2px 0;
+    }
+
+    .newsletter-box p {
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    .newsletter-form input[type="email"] {
+      flex: 1;
+      background: rgba(0, 230, 118, 0.05);
+      border: 1px solid var(--neon-dim);
+      border-radius: 4px;
+      padding: 12px 16px;
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .newsletter-form input[type="email"]::placeholder {
+      color: rgba(200, 240, 210, 0.3);
+    }
+
+    .newsletter-form input[type="email"]:focus {
+      border-color: var(--neon);
+      box-shadow: var(--glow-sm);
+    }
+
+    .newsletter-form button {
+      background: var(--neon);
+      color: var(--bg);
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: var(--glow-sm);
+      transition: box-shadow 0.2s, opacity 0.2s;
+    }
+
+    .newsletter-form button:hover {
+      box-shadow: var(--glow-md);
+      opacity: 0.92;
+    }
+
+    .newsletter-note {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 12px;
+      opacity: 0.7;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--neon-faint);
+      padding: 24px 0;
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    footer span { color: var(--neon); }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.4rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-box { padding: 24px 18px; }
+      .tagline p { font-size: 0.83rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix rain background -->
+  <canvas id="matrix"></canvas>
+
+  <div class="page">
+
+    <!-- ── Header ── -->
+    <header>
+      <div class="container">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <img src="avatar.jpg" alt="CoderAssist robot mascot" />
+          </div>
+        </div>
+        <h1>CoderAssist</h1>
+        <p class="handle">@coderassist</p>
+      </div>
+    </header>
+
+    <!-- ── Tagline + CTA ── -->
+    <section class="tagline">
+      <div class="container">
+        <p>Practical advice on AI tools and developer productivity — for engineers who want to stay ahead without the hype. One insight per post. No fluff.</p>
+        <a
+          class="btn-instagram"
+          href="https://www.instagram.com/coderassist/"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+    </section>
+
+    <!-- ── Recent posts ── -->
+    <section class="posts">
+      <div class="container">
+        <hr class="divider" />
+        <p class="section-label">// Recent posts</p>
+        <div class="posts-grid">
+
+          <a class="post-card" href="https://www.instagram.com/coderassist/" target="_blank" rel="noopener">
+            <p class="post-tag">AI tools</p>
+            <p class="post-hook">Stop using one AI coding tool for everything. Here's what each one is actually for.</p>
+            <span class="post-arrow">→ view_post()</span>
+          </a>
+
+          <a class="post-card" href="https://www.instagram.com/coderassist/" target="_blank" rel="noopener">
+            <p class="post-tag">Code review</p>
+            <p class="post-hook">AI will write confidently broken code in these five areas. Review them every time.</p>
+            <span class="post-arrow">→ view_post()</span>
+          </a>
+
+          <a class="post-card" href="https://www.instagram.com/coderassist/" target="_blank" rel="noopener">
+            <p class="post-tag">The future of engineering</p>
+            <p class="post-hook">Gartner predicts 90% of engineers will shift from writing code to orchestrating AI agents by 2026. Is that a demotion or a promotion?</p>
+            <span class="post-arrow">→ view_post()</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Newsletter ── -->
+    <section class="newsletter">
+      <div class="container">
+        <hr class="divider" />
+        <p class="section-label">// Newsletter</p>
+        <div class="newsletter-box">
+          <p>One email per week. The best AI + developer productivity insights — no spam, no noise. Unsubscribe any time.</p>
+          <!-- Replace YOUR_FORM_ID with your Formspree form ID -->
+          <form
+            class="newsletter-form"
+            action="https://formspree.io/f/xaqzloqy"
+            method="POST"
+          >
+            <input type="email" name="email" placeholder="engineer@company.com" required autocomplete="email" />
+            <button type="submit">Subscribe</button>
+          </form>
+          <p class="newsletter-note">// no spam · unsubscribe_anytime()</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Footer ── -->
+    <footer>
+      <div class="container">
+        <p><span>@coderassist</span> — AI tools &amp; developer productivity</p>
+      </div>
+    </footer>
+
+  </div><!-- .page -->
+
+  <script>
+    // Matrix rain
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const FONT_SIZE = 13;
+    const CHARS = '01';
+
+    function makeDrops() {
+      const cols = Math.floor(canvas.width / FONT_SIZE);
+      return new Array(cols).fill(1);
+    }
+
+    let drops = makeDrops();
+    window.addEventListener('resize', () => { drops = makeDrops(); });
+
+    function draw() {
+      // Fading trail
+      ctx.fillStyle = 'rgba(6, 13, 6, 0.06)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = FONT_SIZE + 'px "Share Tech Mono", monospace';
+
+      drops.forEach((y, i) => {
+        const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
+        // Leading char is bright white, rest are neon green
+        const isFront = y === drops[i];
+        ctx.fillStyle = isFront ? '#ffffff' : '#00e676';
+        ctx.fillText(ch, i * FONT_SIZE, y * FONT_SIZE);
+
+        if (y * FONT_SIZE > canvas.height && Math.random() > 0.97) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      });
+    }
+
+    // ~30 fps — enough for the effect, easy on CPU
+    setInterval(draw, 33);
+  </script>
+
+</body>
+</html>

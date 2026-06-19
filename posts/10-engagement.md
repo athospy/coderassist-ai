@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: Community engagement — favorite AI tool poll
 suggested_day: Sunday
 ---

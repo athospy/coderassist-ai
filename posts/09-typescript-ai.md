@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: TypeScript + AI is the best combo in 2026
 suggested_day: Wednesday
 ---

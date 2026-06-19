@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: How to write better AI prompts
 suggested_day: Tuesday
 ---

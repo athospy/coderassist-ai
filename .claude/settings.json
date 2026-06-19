@@ -17,10 +17,35 @@
       "Read(//Users/santiagomorel/**)",
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers', {}\\), indent=2\\)\\)\")",
       "Bash(npx @playwright/mcp@latest --version)",
-      "Bash(npm list *)"
+      "Bash(npm list *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(python3 -m http.server 8899)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(kill 56723)",
+      "Bash(kill 56880)",
+      "mcp__playwright__browser_fill_form",
+      "mcp__playwright__browser_close",
+      "Bash(pkill -f \"mcp-chrome-07a4667\")",
+      "Bash(curl -s \"https://api.bufferapp.com/1/profiles.json?access_token=icTYCzj8gA38IsGsUK-zQrjE1qAuEtVFZttzUHCPhHs\")",
+      "Bash(python3 -c ' *)",
+      "mcp__buffer__get_account",
+      "mcp__buffer__list_channels",
+      "Bash(curl -s -X POST https://api.imgbb.com/1/upload --form key=7a4ca576c9a6619165c204cc516f9657 --form 'image=@/Users/santiagomorel/site/coderassist-ai/assets/post-1/ChatGPT Image Jun 12, 2026, 06_06_57 PM.png')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['data']['url'] if d.get\\('success'\\) else json.dumps\\(d\\)\\)\")",
+      "Bash(cp \"/Users/santiagomorel/site/coderassist-ai/assets/post-1/ChatGPT Image Jun 12, 2026, 06_06_57 PM.png\" /tmp/post1.png && echo \"copied ok\")",
+      "Bash(curl -s -X POST https://api.imgbb.com/1/upload --form key=7a4ca576c9a6619165c204cc516f9657 --form image=@/tmp/post1.png)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['data']['url'] if d.get\\('success'\\) else json.dumps\\(d, indent=2\\)\\)\")",
+      "Bash(python scripts/mark.py 01-stat-shock published)",
+      "Bash(python scripts/mark.py 02-vibe-coding published)",
+      "Bash(curl -s -X POST https://api.imgbb.com/1/upload --form key=7a4ca576c9a6619165c204cc516f9657 --form image=@/tmp/post3.png)",
+      "mcp__buffer__create_post",
+      "Bash(python scripts/mark.py 03-tool-comparison ready)"
     ],
     "additionalDirectories": [
-      "/Users/santiagomorel/site/coderassist-ai"
+      "/Users/santiagomorel/site/coderassist-ai",
+      "/tmp"
     ]
   }
 }

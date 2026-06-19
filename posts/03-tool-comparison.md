@@ -1,5 +1,5 @@
 ---
-status: draft
+status: ready
 topic: Cursor vs Claude Code vs GitHub Copilot
 suggested_day: Wednesday
 ---

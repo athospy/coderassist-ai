@@ -1,6 +1,9 @@
 # Credentials — never commit
 scripts/.env
 
+# Private session notes
+internal-docs/
+
 # macOS
 .DS_Store
 
